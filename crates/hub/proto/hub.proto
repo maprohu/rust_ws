@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package hub_proto;
+
+service HubService {
+  rpc Publish(stream PublishRequest) returns (PublishReply);
+  rpc Subscribe(SubscribeRequest) returns (stream SubscribeReply);
+}
+
+message Topic {
+  string name = 1;
+}
+
+message PublishRequest {
+  oneof message_type {
+    Init init = 1;
+    Data data = 2;
+  }
+  message Init {
+    Topic topic = 1;
+  }
+  message Data {
+    bytes data = 1;
+  }
+}
+
+message PublishReply {
+}
+
+message SubscribeRequest {
+  Topic topic = 1;
+}
+
+message SubscribeReply {
+  bytes data = 1;
+}
