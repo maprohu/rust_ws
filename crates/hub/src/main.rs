@@ -30,8 +30,6 @@ impl HubServiceImpl {
             let mut topics: HashMap<TopicKey, TopicSubscribers> = HashMap::new();
 
             while let Some(action) = rx.recv().await {
-                println!("GOT = {:?}", action);
-
                 match action {
                     Action::Subscribe { sender, topic } => {
                         let subscribers = topics
